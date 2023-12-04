@@ -1,0 +1,31 @@
+{
+    "development": {
+        "username": "desarrollo",
+        "password": "HernandezSA30.",
+        "database": "tiendaKarito",
+        "host"    : "adrianserver.database.windows.net",
+        "dialect" : "mssql",
+        "dialectOptions": {
+            "options": {
+                "encrypt": true
+            }
+        },
+        "operatorAliases": false
+    },
+    "staging": {
+        "username": "desarrollo",
+        "password": "desarrollo985",
+        "database": "carro",
+        "host"    : "192.168.1.190",
+        "dialect" : "mysql",
+        "operatorAliases": false
+    },
+    "production": {
+        "username": "production",
+        "password": "desarrollo123@",
+        "database": "carro",
+        "host"    : "192.168.1.200",
+        "dialect" : "mysql",
+        "operatorAliases": false
+    }
+}
