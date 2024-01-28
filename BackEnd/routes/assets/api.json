@@ -1,0 +1,83 @@
+[
+    {
+      "type": "get",
+      "models": [
+        {
+          "model":"persona",
+          "urls": [
+            "/listar/persona",
+            "/listar/persona/:external_persona"
+          ]
+        },
+        {
+          "model":"cuenta",
+          "urls": [
+            "/listar/cuenta"
+          ]
+        },
+        {
+          "model":"dispositivo",
+          "urls": [
+            "/listar/dispositivo",
+            "/listar/dispositivo/:external_dispositivo"
+          ]
+        },
+        {
+          "model":"medicion",
+          "urls": [
+            "/listar/medicion",
+            "/listar/medicion/:external_medicion"
+          
+          ]
+        },
+        {
+          "model":"peticion_token",
+          "urls": [
+            "/listar/peticion_token"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "post",
+      "models": [
+        {
+          "model":"persona",
+          "urls": [
+            "/guardar/persona",
+            "/guardar/persona/:external_persona"
+          ]
+        },
+        {
+          "model":"cuenta",
+          "urls": [
+            "/iniciar_sesion"
+          ]
+        },
+        {
+          "model":"dispositivo",
+          "urls": [
+            "/guardar/dispositivo",
+            "/guardar/dispositivo/:external_dispositivo"
+          
+          ]
+        },
+        {
+          "model":"medicion",
+          "urls": [
+            "/guardar/medicion",
+            "/guardar/medicion/:external_medicion"
+          
+          ]
+        },
+        {
+          "model":"peticion_token",
+          "urls": [
+            "/guardar/peticion_token",
+            "/guardar/peticion_token/:external_peticion_token"
+          ]
+        }
+      ]
+    }
+]
+  

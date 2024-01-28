@@ -1,15 +1,10 @@
 {
     "development": {
         "username": "desarrollo",
-        "password": "HernandezSA30.",
-        "database": "tiendaKarito",
-        "host"    : "adrianserver.database.windows.net",
-        "dialect" : "mssql",
-        "dialectOptions": {
-            "options": {
-                "encrypt": true
-            }
-        },
+        "password": "desarrollo",
+        "database": "semaforo_pis",
+        "host"    : "127.0.0.1",
+        "dialect" : "mysql",
         "operatorAliases": false
     },
     "staging": {
