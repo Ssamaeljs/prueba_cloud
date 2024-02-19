@@ -3,6 +3,7 @@ import UserOption from "./Gestionar Usuario/UserOption";
 import TokenOption from "./Gestionar Tokens/TokenOption";
 import DeviceOption from "./Gestionar Dispositivos/DeviceOption";
 import AdminOption from "./Configuracion/AdminOption";
+import ApiOption from "./Configuracion/AccesoApi/ApiOption";
 
 const FuncionesAdmin = (props) => {
   return (
@@ -24,11 +25,7 @@ const FuncionesAdmin = (props) => {
       </div>
 
       <div
-        className={
-          props.configuracion
-            ? "row justify-content-center"
-            : "row justify-content-between"
-        }
+        className="row justify-content-between"
         style={{
           padding: "100px",
           alignItems: "center",
@@ -41,7 +38,12 @@ const FuncionesAdmin = (props) => {
             <TokenOption user={props.user} />
           </>
         ) : (
-          <AdminOption user={props.user} />
+          <>
+            <div className="col-1 justify-content-center " />
+            <AdminOption user={props.user} />
+            <ApiOption />
+            <div className="col-1 justify-content-center " />
+          </>
         )}
       </div>
     </>

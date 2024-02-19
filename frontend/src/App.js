@@ -98,6 +98,7 @@ function App() {
           </MiddlewareSesion>
         }
       />
+      
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

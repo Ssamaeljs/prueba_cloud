@@ -8,12 +8,21 @@ import Usuarios from "./Gestionar Usuario/Usuarios";
 import Devices from "./Gestionar Dispositivos/Devices";
 import Mediciones from "./Gestionar Dispositivos/Mediciones/Mediciones";
 import Solicitudes from "./Gestionar Tokens/Solicitudes";
+import Bot from "../../Componentes/ChatBot/Bot";
 
 const PaginaInicioAdmin = () => {
   const location_props = useLocation();
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("data")).user
   );
+  function permitirBot() {
+    switch (location_props.pathname) {
+      case "/admin":
+        return true;
+      default:
+        return false;
+    }
+  }
   function obtener_componente() {
     switch (location_props.pathname) {
       case "/admin":
@@ -56,6 +65,22 @@ const PaginaInicioAdmin = () => {
           >
             {obtener_componente()}
           </div>
+          {permitirBot() ? (
+            <div
+              className="contenedor-borde-izquierdo-abajo"
+              style={{
+                position: "fixed",
+                bottom: "50px",
+                right: "40px",
+                width: "450px", // Ajusta el ancho según tus necesidades
+                height: "600px", // Ajusta la altura según tus necesidades
+                borderRadius: "10px", // Ajusta el radio de borde según tus necesidades
+                zIndex: "2", // Asegura que esté por encima del contenedor principal
+              }}
+            >
+              <Bot usuario={user} isUser={true} />
+            </div>
+          ) : null}
         </>
       </section>
     </>

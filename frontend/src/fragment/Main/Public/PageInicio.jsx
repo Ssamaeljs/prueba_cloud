@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./Header";
 import ContenedorInicio from "../../Componentes/ContenedorInicio";
+import Bot from "../../Componentes/ChatBot/Bot";
 
 const PaginaInicio = () => {
   return (
@@ -24,6 +25,20 @@ const PaginaInicio = () => {
           }}
         >
           <ContenedorInicio />
+        </div>
+        <div
+          className="contenedor-borde-izquierdo-abajo"
+          style={{
+            position: "fixed",
+            bottom: "50px",
+            right: "40px",
+            width: "450px", // Ajusta el ancho según tus necesidades
+            height: "600px", // Ajusta la altura según tus necesidades
+            borderRadius: "10px", // Ajusta el radio de borde según tus necesidades
+            zIndex: "2", // Asegura que esté por encima del contenedor principal
+          }}
+        >
+          {!true && <Bot usuario={null} />}
         </div>
       </section>
     </div>

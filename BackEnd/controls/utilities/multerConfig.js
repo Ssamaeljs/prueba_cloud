@@ -10,13 +10,13 @@ const generarNombreArchivo = (file) => {
 };
 
 // Define una función para validar las extensiones de archivo permitidas
-const validarExtensionArchivo = (file, cb) => {
-  const allowedExtensions = [".jpeg", ".jpg", ".png"];
+const validarExtensionArchivo = (file, cb, extensiones) => {
+  const allowedExtensions = extensiones || [".pdf", ".doc", ".docx"];
   const ext = path.extname(file.originalname);
   if (allowedExtensions.includes(ext)) {
     cb(null, true);
   } else {
-    cb(new Error("Solo se permiten archivos JPEG, JPG y PNG."));
+    cb(new Error("Solo se permiten archivos PDF, DOC, DOCX."));
   }
 };
 
@@ -34,27 +34,20 @@ const validarTamanioMaximoArchivo = (file, cb) => {
 const configuracionMulter = (carpetaDestino) => {
   return {
     storage: multer.diskStorage({
-      destination: path.join(
-        __dirname,
-        `../../public/images/${carpetaDestino}`
-      ),
+      destination: path.join(__dirname, `../../public/docs/${carpetaDestino}`),
       filename: (req, file, cb) => {
         cb(null, generarNombreArchivo(file));
       },
     }),
-    fileFilter: (req, file, cb) => {
-      validarExtensionArchivo(file, cb);
-    },
-    limits: { fileSize: 2 * 1024 * 1024 }, // 2MB
   };
 };
 
 // Crear el middleware de carga de imágenes genérico
-const crearMiddlewareCargaImagen = (carpetaDestino) => {
+const crearMiddlewareCarga = (carpetaDestino) => {
   const configuracion = configuracionMulter(carpetaDestino);
   return multer(configuracion);
 };
 
 module.exports = {
-  crearMiddlewareCargaImagen,
+  crearMiddlewareCarga,
 };

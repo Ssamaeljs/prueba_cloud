@@ -1,38 +1,48 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import { Spinner } from "react-bootstrap";
-
+import generatePdf from "./generatePdf";
 import MapView from "./Mapa/MapaView";
 import MedicionView from "./MedicionUV/MedicionView";
-
+import { Button } from "reactstrap";
 import { GET } from "../../hooks/Conexion";
 import { getToken } from "../../utilidades/Sessionutil";
+import GraficoHistorico from "./Graficos/GraficoHistorico";
 
 const ContenedorInicio = (props) => {
   const { isAdmin } = props;
   const [llDispositivos, setLlDispositivos] = useState(false);
   const [dispositivos, setDispositivos] = useState([]);
+  const [promedio, setPromedio] = useState(0);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedUVData, setSelectedUVData] = useState(null);
 
   useEffect(() => {
     if (!llDispositivos) {
-      GET("listar/dispositivo", getToken())
+      GET("listar/api_dispositivo", getToken())
         .then((info) => {
+          var dispositivos, promedio;
+          dispositivos = info.info.dispositivos;
+          promedio = info.info.promedio;
+          console.log(dispositivos);
           if (info.code !== 200) {
             setError("Error de Conexión:  " + info.msg);
           } else {
+            setPromedio(promedio);
             if (!isAdmin) {
-              const dispositivosActivos = info.info.filter(
-                (dispositivo) => dispositivo.estado
+              var dispositivosActivos = dispositivos.filter(
+                (dispositivo) => dispositivo.activo
               );
               setDispositivos(dispositivosActivos);
             } else {
-              setDispositivos(info.info);
+              setDispositivos(dispositivos);
             }
           }
         })
-        .catch(() => {
+        .catch((e) => {
+          console.error(e);
           setError("Error de Conexión");
         })
         .finally(() => {
@@ -41,8 +51,9 @@ const ContenedorInicio = (props) => {
         });
     }
   }, [llDispositivos, setLoading]);
-
-  const [selectedUVData, setSelectedUVData] = useState(null);
+  const handleGeneratePdf = () => {
+    generatePdf(dispositivos, promedio); // Llamamos a la función para generar el PDF con los dispositivos y el promedio
+  };
   return (
     <>
       {loading ? (
@@ -99,6 +110,19 @@ const ContenedorInicio = (props) => {
               <MedicionView
                 dispositivos={dispositivos}
                 selectedUVData={selectedUVData}
+                promedio={promedio}
+              />
+            </div>
+            <div
+              className="row justify-content-center"
+              style={{ padding: "28px" }}
+            >
+              <GraficoHistorico
+                radiacionUVDispositivoActual={dispositivos.map(
+                  (dispositivo) => dispositivo.medicion[0].uv
+                )}
+                dispositivos={dispositivos}
+                radiacionUVPromedio={promedio}
               />
             </div>
           </div>

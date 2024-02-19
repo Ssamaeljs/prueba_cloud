@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const models = require("../../models");
 const cuenta = models.cuenta;
+const peticion_token = models.peticion_token;
 require("dotenv").config();
 const secretKey = process.env.KEY_LOGIN;
 
@@ -40,25 +41,19 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
-const authorize = (permiso) => {
-  return (req, res, next) => {
-    const usuario = req.user; // Suponiendo que has agregado el usuario al objeto de solicitud (req) durante la autenticación.
-
-    if (!usuario || !usuario.rol || !tienePermiso(usuario.rol, permiso)) {
-      return res.status(403).json({
-        msg: "Acceso prohibido. No tienes los permisos necesarios.",
-        code: 403,
+const authorize = (req, res, next) => {
+  const api_key = req.body["api-key"];
+  if (req.params.isAdmin) {
+    next();
+  } else {
+    if (!api_key) {
+      return res.status(401).json({
+        msg: "Api key no proporcionado.",
+        code: 401,
       });
     }
     next();
-  };
-};
-
-const tienePermiso = (rol, permiso) => {
-  if (rol === roles.ADMINISTRADOR) {
-    return true;
   }
-  return false;
 };
 
 module.exports = {

@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     "medicion",
     {
       external_id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4 },
-      uv: { type: DataTypes.INTEGER, allowNull: false },
+      uv: { type: DataTypes.FLOAT, allowNull: false },
       fecha: { type: DataTypes.DATE, allowNull: false },
     },
     {

@@ -74,6 +74,7 @@ const MapView = (props) => {
                 attribution='&copy; <a href="https://github.com/Ssamaeljs">SamaelJS</a>'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
+
               <Markers
                 dispositivos={state.dispositivos}
                 setSelectedUVData={setSelectedUVData}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { POST } from "../../../../../hooks/Conexion";
+
 import { Button, Form } from "react-bootstrap";
 import {
   MDBCard,
@@ -9,9 +9,11 @@ import {
   MDBRow,
   MDBCol,
 } from "mdb-react-ui-kit";
-import mensajes from "../../../../../utilidades/Mensajes";
-import { getToken } from "../../../../../utilidades/Sessionutil";
+
 import img from "./img/img.jpg";
+import { POST } from "../../../../../../hooks/Conexion";
+import { getToken } from "../../../../../../utilidades/Sessionutil";
+import mensajes from "../../../../../../utilidades/Mensajes";
 const EditarPerfil = (props) => {
   const { setShow, usuario } = props;
   const [showCargo, setShowCargo] = useState(false);

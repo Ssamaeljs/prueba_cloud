@@ -12,7 +12,10 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   peticion_token.associate = function (models) {
-    peticion_token.belongsTo(models.cuenta, { foreignKey: "id_cuenta" });
+    peticion_token.hasMany(models.cuenta, {
+      foreignKey: "id_token",
+      as: "cuenta",
+    });
   };
 
   return peticion_token;

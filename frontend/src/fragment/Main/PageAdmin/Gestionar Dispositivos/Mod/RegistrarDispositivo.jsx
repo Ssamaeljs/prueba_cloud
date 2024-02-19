@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { POST } from "../../../../../hooks/Conexion";
+import { GET, POST } from "../../../../../hooks/Conexion";
 import { Button, Form } from "react-bootstrap";
 import {
   MDBCard,
@@ -24,7 +24,7 @@ const RegistrarDispositivo = (props) => {
   } = useForm();
 
   const estadoCheckbox = watch("estado");
-
+  const url = "https://computacion.unl.edu.ec/uv/api/";
   const onSubmit = (data) => {
     const datos = {
       identificador: parseInt(data.identificador),
@@ -56,6 +56,25 @@ const RegistrarDispositivo = (props) => {
     setShow(false);
   };
 
+  const onSubmitServer = (data) => {
+    var token = getToken();
+    GET("tokenDispositivo", null, url).then((info) => {
+      if (info.code === 200) {
+        token = info.token;
+        POST(data, "dispositivo", token).then((info) => {
+          if (info.code !== 200) {
+            mensajes("Hubo un error en el registro", "error", "Error");
+          } else {
+            mensajes("Dispositivo registrado exitosamente", "success", "Éxito");
+            setShow(false);
+            setTimeout(() => {
+              window.location.reload();
+            }, 10);
+          }
+        });
+      }
+    });
+  };
   return (
     <MDBCard style={{ border: "none" }}>
       <MDBRow className="g-0">
@@ -81,7 +100,10 @@ const RegistrarDispositivo = (props) => {
                 }}
               />
             </div>
-            <form onSubmit={handleSubmit(onSubmit)} className="form-sample">
+            <form
+              onSubmit={handleSubmit(onSubmitServer)}
+              className="form-sample"
+            >
               <h5
                 className="col-sm-12 text-center mt-5 mb-5"
                 style={{ letterSpacing: "1px" }}
@@ -103,7 +125,35 @@ const RegistrarDispositivo = (props) => {
                       "Ingresa el identificador"}
                   </Form.Control.Feedback>
                 </Form.Group>
-
+                {true && (
+                  <>
+                    <Form.Group className="mb-4">
+                      <Form.Label>Nombre</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Nombre"
+                        {...register("nombre", { required: true })}
+                        isInvalid={!!errors.nombre}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.nombre?.type === "required" &&
+                          "Ingresa el nombre"}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group className="mb-4">
+                      <Form.Label>IP</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="IP"
+                        {...register("ip", { required: true })}
+                        isInvalid={!!errors.ip}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.ip?.type === "required" && "Ingresa la ip"}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </>
+                )}
                 <Form.Group className="mb-4">
                   <Form.Label>Latitud</Form.Label>
                   <Form.Control
@@ -133,17 +183,20 @@ const RegistrarDispositivo = (props) => {
                       "Ingresa la longitud"}
                   </Form.Control.Feedback>
                 </Form.Group>
-
-                <Form.Group className="mb-4">
-                  <Form.Check
-                    type="checkbox"
-                    label={`Estado: ${estadoCheckbox ? "Activo" : "Inactivo"}`}
-                    {...register("estado")}
-                    onChange={() => {
-                      setValue("estado", !estadoCheckbox);
-                    }}
-                  />
-                </Form.Group>
+                {false && (
+                  <Form.Group className="mb-4">
+                    <Form.Check
+                      type="checkbox"
+                      label={`Estado: ${
+                        estadoCheckbox ? "Activo" : "Inactivo"
+                      }`}
+                      {...register("estado")}
+                      onChange={() => {
+                        setValue("estado", !estadoCheckbox);
+                      }}
+                    />
+                  </Form.Group>
+                )}
 
                 <div className="text-center mt-5 mb-2">
                   <Button

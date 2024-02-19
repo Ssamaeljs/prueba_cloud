@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
-import EditarPerfil from "./Mod/EditarPerfil";
+import EditarPerfil from "./EditarPerfil/Mod/EditarPerfil";
 
 const AdminOption = (props) => {
   const [showEditarPerfil, setShowEditarPerfil] = useState(false);

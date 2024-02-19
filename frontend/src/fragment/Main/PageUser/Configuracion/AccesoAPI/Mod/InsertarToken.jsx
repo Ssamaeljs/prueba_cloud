@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Form } from "react-bootstrap";
-import {
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBRow,
-  MDBCol,
-} from "mdb-react-ui-kit";
-import { useNavigate } from "react-router";
+import { MDBCard, MDBCardBody, MDBRow, MDBCol } from "mdb-react-ui-kit";
+import { POST } from "../../../../../../hooks/Conexion";
+import { getToken } from "../../../../../../utilidades/Sessionutil";
+import mensajes from "../../../../../../utilidades/Mensajes";
 
 const InsertarToken = (props) => {
   const { usuario, setShow } = props;
-  console.log(usuario);
   const {
     register,
     handleSubmit,
@@ -25,12 +20,23 @@ const InsertarToken = (props) => {
       setValue("token_insertado", usuario.token);
     }
   }, [setValue]);
+
   const [showPassword, setShowPassword] = useState(false);
+
   const onSubmit = (data) => {
-    if (usuario.token != "token no asignado") {
-      window.open("http://localhost:8000/", "_blank");
-      setShow(false);
-    }
+    const datos = {
+      "api-key": data.token_insertado,
+    };
+
+    POST(datos, "redirigir/api", getToken()).then((info) => {
+      if (info.code != 200) {
+        mensajes(info.msg, "error", "Error de Acceso");
+      } else {
+        mensajes(info.msg, "success", "Exito");
+        setShow(false);
+        window.open("http://localhost:8000/", "_blank");
+      }
+    });
   };
 
   return (

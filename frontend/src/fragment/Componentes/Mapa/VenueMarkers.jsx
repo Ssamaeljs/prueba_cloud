@@ -13,12 +13,16 @@ const VenueMarkers = (props) => {
       fecha = medicion.fecha;
       uv = medicion.uv;
     });
+    uv = uv.toFixed(2);
+    if (uv >= 100 || uv == 0) {
+      uv = Math.floor(uv);
+    }
     return {
       geometry: [dispositivo.latitud, dispositivo.longitud],
-      name: dispositivo.identificador,
+      name: dispositivo.nombre,
       uv: uv,
       fecha: fecha,
-      estado: dispositivo.estado,
+      estado: dispositivo.activo,
     };
   });
 

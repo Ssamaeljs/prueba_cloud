@@ -1,16 +1,16 @@
 import React from "react";
-import { getPromedio, getUVColor } from "./assets/MedicionUtils";
+import { getCategoriaPorUV } from "./assets/MedicionUtils";
 
 const MedicionInfo = (props) => {
-  const { dispositivos, selectedUVData } = props;
+  const { selectedUVData, promedio } = props;
   return (
     <div className="container text-right">
       <div className="row">
         <div className="container" style={{ padding: "20px " }}>
           <a
             style={{
-              color: getUVColor(
-                selectedUVData ? selectedUVData.uv : getPromedio(dispositivos)
+              color: getCategoriaPorUV(
+                selectedUVData ? selectedUVData.uv : promedio
               ).color,
               fontSize: "20px",
               fontFamily: "Arial",
@@ -18,9 +18,8 @@ const MedicionInfo = (props) => {
             }}
           >
             {
-              getUVColor(
-                selectedUVData ? selectedUVData.uv : getPromedio(dispositivos)
-              ).tipo
+              getCategoriaPorUV(selectedUVData ? selectedUVData.uv : promedio)
+                .tipo
             }
           </a>
         </div>
@@ -36,9 +35,8 @@ const MedicionInfo = (props) => {
             }}
           >
             {
-              getUVColor(
-                selectedUVData ? selectedUVData.uv : getPromedio(dispositivos)
-              ).descripcion
+              getCategoriaPorUV(selectedUVData ? selectedUVData.uv : promedio)
+                .descripcion
             }
           </a>
           <div />

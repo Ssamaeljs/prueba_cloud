@@ -20,13 +20,13 @@
     {
         "tipo": "Muy Alta",
         "valor_max": "8-10",
-        "descripcion": "Son imprescindibles camisa, crema de proteccion solar, sombrero y gafas de sol",
+        "descripcion": "Son imprescindibles usar camisa, crema de proteccion solar, sombrero y gafas de sol",
         "color": "#d8001d"
     },
     {
         "tipo": "Extremadamente Alta",
         "valor_max": "11-15",
-        "descripcion": "Son imprescindibles camisa, crema de proteccion solar, sombrero y gafas de sol",
+        "descripcion": "Son imprescindibles usar camisa, crema de proteccion solar, sombrero y gafas de sol",
         "color": "#998cff"
     }
 ]

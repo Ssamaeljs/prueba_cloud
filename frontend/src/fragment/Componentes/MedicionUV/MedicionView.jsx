@@ -2,10 +2,10 @@ import React from "react";
 import MedicionUV from "./MedicionUV";
 import MedicionInfo from "./MedicionInfo";
 import CategoriasExposicion from "../Tablas/CategoriasExposicion";
-import BarraVoz from "../BarraVoz/BarraVoz";
-
+import { MDBCarousel, MDBCarouselItem } from "mdb-react-ui-kit";
+import Recomendaciones from "../Tablas/Recomendaciones";
 const MedicionView = (props) => {
-  const { dispositivos, selectedUVData } = props;
+  const { selectedUVData, promedio } = props;
   return (
     <div
       className="card"
@@ -25,35 +25,34 @@ const MedicionView = (props) => {
       </div>
       <div className="card-body">
         <div className="row ">
-          <div className="col-4">
-            <MedicionUV
-              dispositivos={dispositivos}
-              selectedUVData={selectedUVData}
-            />
+          <div className="col-5">
+            <MedicionUV selectedUVData={selectedUVData} promedio={promedio} />
           </div>
           <div className="col-sm">
             <div className="row">
               <MedicionInfo
-                dispositivos={dispositivos}
                 selectedUVData={selectedUVData}
-              />
-            </div>
-            <div
-              className="row justify-content-center"
-              style={{
-                paddingTop: "80px",
-              }}
-            >
-              <BarraVoz
-                dispositivos={dispositivos}
-                selectedUVData={selectedUVData}
+                promedio={promedio}
               />
             </div>
           </div>
         </div>
-        <div className="row justify-content-center" style={{ padding: "38px" }}>
-          <div className="col">
-            <CategoriasExposicion />
+
+        <div className="row justify-content-center">
+          <div
+            className="col"
+            style={{
+              padding: 22,
+            }}
+          >
+            <MDBCarousel showControls showIndicators>
+              <MDBCarouselItem itemId={1}>
+                <CategoriasExposicion />
+              </MDBCarouselItem>
+              <MDBCarouselItem itemId={2}>
+                <Recomendaciones />
+              </MDBCarouselItem>
+            </MDBCarousel>
           </div>
         </div>
       </div>

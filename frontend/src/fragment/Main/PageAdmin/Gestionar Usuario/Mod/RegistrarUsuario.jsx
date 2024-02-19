@@ -11,8 +11,8 @@ import {
 } from "mdb-react-ui-kit";
 import mensajes from "../../../../../utilidades/Mensajes";
 import { getToken } from "../../../../../utilidades/Sessionutil";
-
 import img from "./img/img.jpg";
+
 const RegistrarUsuario = (props) => {
   const { setShow } = props;
 

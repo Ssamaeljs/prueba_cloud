@@ -20,7 +20,7 @@ const MarkerPopup = (props) => {
           </p>
         )}
         <p>
-          <strong>Identificador:</strong> {name}
+          <strong>Zona:</strong> {name}
         </p>
         <p>
           <strong>Latitud:</strong> {geometry[0]}
@@ -31,6 +31,7 @@ const MarkerPopup = (props) => {
         <p>
           <strong>UV:</strong> {uv}
         </p>
+
         {props.data.estado && (
           <div className="text-center">
             <a

@@ -57,10 +57,9 @@ body {
 
 .home {
     width: 100%;
-    height: 100vh;
+    height: 127vh;
     background-image: url(https://siaaf.unl.edu.ec/asistencia-static/img/unl.jpg);
-    background-position: center top;
-	background-size:cover;
+    background-size: 125%;
 }
 
 .nav {
